@@ -19,7 +19,8 @@ void readFile(char nameFile[name]){
 }
 
 int main(){
-    printf("Hello world!\n");
-    return 0;
+    char nombreArchivo[name];
+    printf("Ingresa el nombre del archivo: ");
+    gets(nombreArchivo);
     return 0;
 }
