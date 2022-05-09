@@ -22,5 +22,5 @@ int main(){
     char nombreArchivo[name];
     printf("Ingresa el nombre del archivo: ");
     gets(nombreArchivo);
-    return 0;
+    return 0; 
 }
