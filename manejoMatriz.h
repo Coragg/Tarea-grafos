@@ -4,8 +4,7 @@
 
 typedef int BOOL;
 
-int **DaMemoriaMatriz(int m, int n)
-{
+int **DarMemoriaMatriz(int m, int n) {
     int **aux, i, j;
 
     aux = (int **)malloc(m*sizeof(int *));
@@ -16,8 +15,7 @@ int **DaMemoriaMatriz(int m, int n)
             aux[i][j] = 0;
     return aux;
 }
-int *DaMemoriaArreglo(int n)
-{
+int *DarMemoriaArreglo(int n) {
     int *aux, i;
 
     aux = (int *)malloc(n*sizeof(int));
@@ -25,43 +23,35 @@ int *DaMemoriaArreglo(int n)
         aux[i] = FALSE;
     return aux;
 }
-int NumeroNodosSinVisitar(int *Visitado, int n)
-{
+
+int numeroDeNodosSinVisitar(int *Visitado, int n) {
     int i, cont;
 
     i = 0;
     cont = 0;
 
-    while (i < n)
-    {
-        if (Visitado[i] == FALSE){
+    while (i < n) {
+        if (Visitado[i] == FALSE) {
             cont++;
         }
         i++;
     }
    return cont;
 }
-int NodoMinimoCostoSinVisitar(int *Visitado, int *Costo, int n)
-{
+int nodoMinimoCostoSinVisitar(int *Visitado, int *Costo, int n) {
     int i, nodo, minimo;
     BOOL esElPrimero;
 
     esElPrimero = TRUE;
     i = 0;
-    while(i < n)
-    {
-        if (Visitado[i] == FALSE)
-        {
-            if (esElPrimero)
-            {
+    while(i < n) {
+        if (Visitado[i] == FALSE) {
+            if (esElPrimero) {
                 minimo = Costo[i];
                 nodo = i;
                 esElPrimero = FALSE;
-            }
-            else
-            {
-                if (Costo[i] < minimo)
-                {
+            } else {
+                if (Costo[i] < minimo) {
                     minimo = Costo[i];
                     nodo = i;
                 }

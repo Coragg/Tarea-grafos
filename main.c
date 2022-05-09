@@ -10,11 +10,11 @@ int **Grafo = NULL;
 int n;
 int m;
 
-void ImprimeCaminos(int *NodoAnterior, int *Costo, int n, int v0){
+void imprimirCamino(int *NodoAnterior, int *Costo, int n, int v0){
     int *Camino, i, j, nodo;
 
     printf("\nLos caminos son: ");
-    Camino = DaMemoriaArreglo(n);
+    Camino = DarMemoriaArreglo(n);
     for(i=0;i<n;i++) {
         if (i != v0) {
             j = 0; 
@@ -44,9 +44,9 @@ void DIJKSTRA(int **Grafo, int v0) {
     int *NodoAnterior;
     int i, j, w=v0;
 
-    Visitado = DaMemoriaArreglo(n);
-    Costo = DaMemoriaArreglo(n);
-    NodoAnterior = DaMemoriaArreglo(n);
+    Visitado = DarMemoriaArreglo(n);
+    Costo = DarMemoriaArreglo(n);
+    NodoAnterior = DarMemoriaArreglo(n);
 
     Visitado[v0] = TRUE;
     for(i=0;i<n;i++) {
@@ -56,8 +56,8 @@ void DIJKSTRA(int **Grafo, int v0) {
             Costo[i] = Grafo[v0][i];
         NodoAnterior[i] = v0;
     }
-    while (NumeroNodosSinVisitar(Visitado, n)>1) {
-        w = NodoMinimoCostoSinVisitar(Visitado, Costo, n);
+    while (numeroDeNodosSinVisitar(Visitado, n)>1) {
+        w = nodoMinimoCostoSinVisitar(Visitado, Costo, n);
         Visitado[w] = TRUE;
         for(j=0;j<n;j++)
         {
@@ -69,7 +69,7 @@ void DIJKSTRA(int **Grafo, int v0) {
             }
         }
     }
-    ImprimeCaminos(NodoAnterior, Costo, n, v0);
+    imprimirCamino(NodoAnterior, Costo, n, v0);
 }
 
 void LeeGrafo(char nomArchivo[20]) {
@@ -82,11 +82,11 @@ void LeeGrafo(char nomArchivo[20]) {
         exit(1);
     }
     fscanf(pArchivo, "%d", &n);
-    Grafo = DaMemoriaMatriz(n,n);
+    Grafo = DarMemoriaMatriz(n,n);
     for(i=0;i<n;i++)
         for(j=0;j<n;j++)
             fscanf(pArchivo, "%d", &Grafo[i][j]);
-    Visitado = DaMemoriaArreglo(n);
+    Visitado = DarMemoriaArreglo(n);
     fclose(pArchivo);
 }
 
