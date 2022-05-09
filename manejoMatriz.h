@@ -1,41 +1,79 @@
 #define TRUE 1
 #define FALSE 0
-#define informacion 3000000
+#define inf 3000000
 
+typedef int BOOL;
 
-int **darMemoriaMatriz(int m, int n){
-    int **auxilliary, i, j;
-    auxilliary = (int **)malloc(m*sizeof(int *));
-    for(i = 0; i<m; i++) {
-        auxilliary[i] =(int *)malloc(n*sizeof(int *));
-    }
-    for(i =0; i<m; j++){
-        for(j = 0; j<n; j++){
-            auxilliary[i][j] = 0;
-        }
-    }
-    return auxilliary;
-}
+int **DaMemoriaMatriz(int m, int n)
+{
+    int **aux, i, j;
 
-int *darMemoriaArreglo(int n){
-    int *aux, i;
-    aux = (int *)malloc(n*sizeof(int));
-    for(i=0;i<n; i++){
-        aux[i] = FALSE;
-    }
+    aux = (int **)malloc(m*sizeof(int *));
+    for(i=0;i<m;i++)
+        aux[i] = (int *)malloc(n*sizeof(int));
+    for(i=0;i<m;i++)
+        for(j=0;j<n;j++)
+            aux[i][j] = 0;
     return aux;
 }
+int *DaMemoriaArreglo(int n)
+{
+    int *aux, i;
 
-int numeroDeNodosSinVisitar(int *visitado, int n){
-    int i, cont;  
+    aux = (int *)malloc(n*sizeof(int));
+    for(i=0;i<n;i++)
+        aux[i] = FALSE;
+    return aux;
+}
+int NumeroNodosSinVisitar(int *Visitado, int n)
+{
+    int i, cont;
+
     i = 0;
     cont = 0;
-    while(i < n){
-        if(visitado[i] == FALSE){
-            
+
+    while (i < n)
+    {
+        if (Visitado[i] == FALSE){
+            cont++;
         }
+        i++;
     }
+   return cont;
 }
+int NodoMinimoCostoSinVisitar(int *Visitado, int *Costo, int n)
+{
+    int i, nodo, minimo;
+    BOOL esElPrimero;
+
+    esElPrimero = TRUE;
+    i = 0;
+    while(i < n)
+    {
+        if (Visitado[i] == FALSE)
+        {
+            if (esElPrimero)
+            {
+                minimo = Costo[i];
+                nodo = i;
+                esElPrimero = FALSE;
+            }
+            else
+            {
+                if (Costo[i] < minimo)
+                {
+                    minimo = Costo[i];
+                    nodo = i;
+                }
+            }
+        }
+        i++;
+    }
+    return nodo;
+}
+
+
+
 
 
 
