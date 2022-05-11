@@ -9,6 +9,15 @@ BOOL *Visitado = NULL;
 int **Grafo = NULL;
 int n;
 int m;
+int I;
+int D;
+
+void InicializaVisitados()
+{
+    int i;
+    for(i=0;i<n;i++)
+        Visitado[i] = FALSE;
+}
 
 void imprimirCamino(int *NodoAnterior, int *Costo, int n, int v0){
     int *Camino, i, j, nodo;
@@ -17,8 +26,8 @@ void imprimirCamino(int *NodoAnterior, int *Costo, int n, int v0){
     Camino = DarMemoriaArreglo(n);
     for(i=0;i<n;i++) {
         if (i != v0) {
-            j = 0; 
-            Camino[j] = i; 
+            j = 0;
+            Camino[j] = i;
             j++;
             nodo = NodoAnterior[i];
             while(nodo != v0) {
@@ -32,7 +41,7 @@ void imprimirCamino(int *NodoAnterior, int *Costo, int n, int v0){
 
             while (j >= 0) {
                 printf("%3d", Camino[j]);
-                j--; 
+                j--;
             }
         }
     }
@@ -74,18 +83,30 @@ void DIJKSTRA(int **Grafo, int v0) {
 
 void LeeGrafo(char nomArchivo[20]) {
     FILE *pArchivo;
-    int i, j;
+    int i, u, v, c;
 
     pArchivo = fopen(nomArchivo, "r");
     if (pArchivo == NULL) {
         printf("\n\n\tERROR: Archivo no encontrado.");
         exit(1);
     }
+
     fscanf(pArchivo, "%d", &n);
     Grafo = DarMemoriaMatriz(n,n);
-    for(i=0;i<n;i++)
-        for(j=0;j<n;j++)
-            fscanf(pArchivo, "%d", &Grafo[i][j]);
+    fscanf(pArchivo, "%d",& m);
+    fscanf(pArchivo, "%d",& I);
+    fscanf(pArchivo, "%d",& D);
+    i= 1;
+
+    while (i<=m)
+    {
+        fscanf(pArchivo, "%d",&u);
+        fscanf(pArchivo, "%d",&v);
+        fscanf(pArchivo, "%d",&c);
+        Grafo[u][v] = c;
+        i++;
+    }
+
     Visitado = DarMemoriaArreglo(n);
     fclose(pArchivo);
 }
