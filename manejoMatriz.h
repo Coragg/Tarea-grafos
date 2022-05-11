@@ -74,12 +74,3 @@ int nodoMinimoCostoSinVisitar(int *Visitado, int *Costo, int n) {
     return nodo;
 }
 
-
-
-
-
-
-
-
-
-

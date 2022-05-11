@@ -12,11 +12,10 @@ int m;
 int I;
 int D;
 
-void InicializaVisitados()
-{
-    int i;
-    for(i=0;i<n;i++)
-        Visitado[i] = FALSE;
+void InicializaVisitados() {
+    int posicionFila;
+    for(posicionFila = 0; posicionFila < n; posicionFila++)
+        Visitado[posicionFila] = FALSE;
 }
 
 void imprimirCamino(int *NodoAnterior, int *Costo, int n, int v0){
@@ -98,10 +97,9 @@ void LeeGrafo(char nomArchivo[20]) {
     fscanf(pArchivo, "%d",& D);
     i= 1;
 
-    while (i<=m)
-    {
-        fscanf(pArchivo, "%d",&u);
-        fscanf(pArchivo, "%d",&v);
+    while (i<=m) {
+        fscanf(pArchivo, "%d",&u);// u es igual a la fila
+        fscanf(pArchivo, "%d",&v); // v es la columna
         fscanf(pArchivo, "%d",&c);
         Grafo[u][v] = c;
         i++;
@@ -123,6 +121,8 @@ void preProcesamiento() {
     printf("Ingrese nodo inicial para buscar los caminos en el grafo (entre 0 y %d): ", n-1);
     scanf("%d", &v0);
     DIJKSTRA(Grafo, v0);
+    printf("Distancia total: ");
+    printf("Camino casi más corto: ");
 }
 
 
