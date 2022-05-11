@@ -121,8 +121,8 @@ void preProcesamiento() {
     printf("Ingrese nodo inicial para buscar los caminos en el grafo (entre 0 y %d): ", n-1);
     scanf("%d", &v0);
     DIJKSTRA(Grafo, v0);
-    printf("Distancia total: ");
-    printf("Camino casi más corto: ");
+    printf("\nDistancia total: ");
+    printf("\nCamino casi mas corto: ");
 }
 
 
