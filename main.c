@@ -11,6 +11,9 @@ int n;
 int m;
 int I;
 int D;
+BOOL *Visitado;
+int *Costo;
+int *NodoAnterior;
 
 void InicializaVisitados() {
     int posicionFila;
@@ -19,37 +22,44 @@ void InicializaVisitados() {
 }
 
 void imprimirCamino(int *NodoAnterior, int *Costo, int n, int v0){
-    int *Camino, i, j, nodo;
+    int *Camino, i, j, nodo, nodo1, nodo2;
 
-    printf("\nLos caminos son: ");
+    //printf("\nLos caminos son: ");
     Camino = DarMemoriaArreglo(n);
-    for(i=0;i<n;i++) {
-        if (i != v0) {
-            j = 0;
-            Camino[j] = i;
-            j++;
-            nodo = NodoAnterior[i];
-            while(nodo != v0) {
-                Camino[j] = nodo;
-                j++;
-                nodo = NodoAnterior[nodo];
-            }
-            Camino[j] = nodo;
-
-            printf("\n\t%2d -> %2d ($%3d): ", v0, i, Costo[i]);
-
-            while (j >= 0) {
-                printf("%3d", Camino[j]);
-                j--;
-            }
-        }
+    //for(i=0;i<n;i++) {
+       // if (i != v0) {
+    j = 0;
+    Camino[j] = D;
+    j++;
+    nodo = NodoAnterior[D];
+    while(nodo != I) {
+        Camino[j] = nodo;
+        j++;
+        nodo = NodoAnterior[nodo];
     }
+    Camino[j] = nodo;
+
+    printf("\n\t%2d -> %2d ($%3d): ", I, D, Costo[D]);
+
+    for (i = 0; i < j; i++){
+        nodo1 = Camino[i];
+        nodo2 = Camino[i+1];
+        Grafo[nodo2][nodo1] = 0;
+
+    }
+
+    while (j >= 0) {
+        printf("%3d", Camino[j]);
+        j--;
+    }
+
+
+       // }
+   // }
 }
 
 void DIJKSTRA(int **Grafo, int v0) {
-    BOOL *Visitado;
-    int *Costo;
-    int *NodoAnterior;
+
     int i, j, w=v0;
 
     Visitado = DarMemoriaArreglo(n);
@@ -77,7 +87,7 @@ void DIJKSTRA(int **Grafo, int v0) {
             }
         }
     }
-    imprimirCamino(NodoAnterior, Costo, n, v0);
+
 }
 
 void LeeGrafo(char nomArchivo[20]) {
@@ -118,11 +128,23 @@ void preProcesamiento() {
     LeeGrafo(nomArchivo);
 
     InicializaVisitados();
-    printf("Ingrese nodo inicial para buscar los caminos en el grafo (entre 0 y %d): ", n-1);
-    scanf("%d", &v0);
-    DIJKSTRA(Grafo, v0);
-    printf("\nDistancia total: ");
-    printf("\nCamino casi mas corto: ");
+   // printf("Ingrese nodo inicial para buscar los caminos en el grafo (entre 0 y %d): ", n-1);
+    //scanf("%d", &v0);
+
+
+
+    DIJKSTRA(Grafo, I);
+    printf("\n costo: %d", Costo[D]);
+    imprimirCamino(NodoAnterior, Costo, n, I);
+    DIJKSTRA(Grafo, I);
+    printf("\n costo: %d", Costo[D]);
+    imprimirCamino(NodoAnterior, Costo, n, I);
+    DIJKSTRA(Grafo, I);
+    printf("\n costo: %d", Costo[D]);
+    imprimirCamino(NodoAnterior, Costo, n, I);
+
+    printf("\n Distancia total: ");
+    printf("\n Camino casi mas corto: ");
 }
 
 
@@ -132,4 +154,3 @@ int main() {
     printf("\n\n");
     return 0;
 }
-
