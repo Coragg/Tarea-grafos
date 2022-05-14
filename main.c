@@ -6,12 +6,12 @@
 //constantes
 #define name 45
 BOOL *Visitado = NULL;
+BOOL *Visitado;
 int **Grafo = NULL;
 int n;
 int m;
-int I;
-int D;
-BOOL *Visitado;
+int InicioDelCamino;
+int DestinoDelCamino;
 int *Costo;
 int *NodoAnterior;
 
@@ -21,42 +21,71 @@ void InicializaVisitados() {
         Visitado[posicionFila] = FALSE;
 }
 
-void imprimirCamino(int *NodoAnterior, int *Costo, int n, int v0){
-    int *Camino, i, j, nodo, nodo1, nodo2;
+void imprimirCamino(int *NodoAnterior, int *Costo, int numeroDeNodo, int v0){
+    int *Camino, i, columna, nodo, nodo1, nodo2;
 
     //printf("\nLos caminos son: ");
-    Camino = DarMemoriaArreglo(n);
+    Camino = DarMemoriaArreglo(numeroDeNodo);
     //for(i=0;i<n;i++) {
        // if (i != v0) {
-    j = 0;
-    Camino[j] = D;
-    j++;
-    nodo = NodoAnterior[D];
-    while(nodo != I) {
-        Camino[j] = nodo;
-        j++;
+    columna = 0;
+    Camino[columna] = DestinoDelCamino;
+    columna++;
+    nodo = NodoAnterior[DestinoDelCamino];
+    while(nodo != InicioDelCamino) {
+        Camino[columna] = nodo;
+        columna++;
         nodo = NodoAnterior[nodo];
     }
-    Camino[j] = nodo;
+    Camino[columna] = nodo;
 
-    printf("\n\t%2d -> %2d ($%3d): ", I, D, Costo[D]);
+    //printf("\n\t%2d -> %2d ($%3d): ", I, D, Costo[D]);
 
-    for (i = 0; i < j; i++){
+    for (i = 0; i < columna; i++){
         nodo1 = Camino[i];
         nodo2 = Camino[i+1];
         Grafo[nodo2][nodo1] = 0;
 
     }
 
-    while (j >= 0) {
-        printf("%3d", Camino[j]);
-        j--;
+    while (columna >= 0) {
+        printf("%3d", Camino[columna]);
+        columna--;
     }
 
 
        // }
    // }
 }
+
+void niIdeaQueHaces(int *NodoAnterior, int *Costo, int numeroDeNodo, int v0){
+    int *Camino, i, columna, nodo, nodo1, nodo2;
+
+    //printf("\nLos caminos son: ");
+    Camino = DarMemoriaArreglo(numeroDeNodo);
+    //for(i=0;i<n;i++) {
+       // if (i != v0) {
+    columna = 0;
+    Camino[columna] = DestinoDelCamino;
+    columna++;
+    nodo = NodoAnterior[DestinoDelCamino];
+    while(nodo != InicioDelCamino) {
+        Camino[columna] = nodo;
+        columna++;
+        nodo = NodoAnterior[nodo];
+    }
+    Camino[columna] = nodo;
+
+    //printf("\n\t%2d -> %2d ($%3d): ", I, D, Costo[D]);
+
+    for (i = 0; i < columna; i++){
+        nodo1 = Camino[i];
+        nodo2 = Camino[i+1];
+        Grafo[nodo2][nodo1] = 0;
+
+    }
+}
+
 
 void DIJKSTRA(int **Grafo, int v0) {
 
@@ -90,6 +119,8 @@ void DIJKSTRA(int **Grafo, int v0) {
 
 }
 
+
+
 void LeeGrafo(char nomArchivo[20]) {
     FILE *pArchivo;
     int i, u, v, c;
@@ -103,8 +134,8 @@ void LeeGrafo(char nomArchivo[20]) {
     fscanf(pArchivo, "%d", &n);
     Grafo = DarMemoriaMatriz(n,n);
     fscanf(pArchivo, "%d",& m);
-    fscanf(pArchivo, "%d",& I);
-    fscanf(pArchivo, "%d",& D);
+    fscanf(pArchivo, "%d",& InicioDelCamino); 
+    fscanf(pArchivo, "%d",& DestinoDelCamino); 
     i= 1;
 
     while (i<=m) {
@@ -119,9 +150,27 @@ void LeeGrafo(char nomArchivo[20]) {
     fclose(pArchivo);
 }
 
+
+
+void revisarCamino(){
+    int i;
+    int costo;
+    for (i = 0; i <= 2; i++){
+        DIJKSTRA(Grafo, InicioDelCamino);
+        Costo[DestinoDelCamino];
+        niIdeaQueHaces(NodoAnterior, Costo, n, InicioDelCamino);
+    }
+
+
+    printf("\nDistancia total: %d", Costo);
+    printf("\nCamino casi mas corto: ");
+    imprimirCamino(NodoAnterior, Costo, n, InicioDelCamino);
+}
+
 void preProcesamiento() {
     char nomArchivo[20];
     int v0;
+
 
     printf("Ingrese nombre del archivo: ");
     gets(nomArchivo);
@@ -133,7 +182,7 @@ void preProcesamiento() {
 
 
 
-    DIJKSTRA(Grafo, I);
+/*     DIJKSTRA(Grafo, I);
     printf("\n costo: %d", Costo[D]);
     imprimirCamino(NodoAnterior, Costo, n, I);
     DIJKSTRA(Grafo, I);
@@ -142,9 +191,9 @@ void preProcesamiento() {
     DIJKSTRA(Grafo, I);
     printf("\n costo: %d", Costo[D]);
     imprimirCamino(NodoAnterior, Costo, n, I);
+ */
+    revisarCamino();
 
-    printf("\n Distancia total: ");
-    printf("\n Camino casi mas corto: ");
 }
 
 
