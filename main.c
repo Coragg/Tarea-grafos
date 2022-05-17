@@ -10,8 +10,8 @@ BOOL *Visitado;
 int **Grafo = NULL;
 int n;
 int m;
-int InicioDelCamino;
-int DestinoDelCamino;
+int I;
+int D;
 int *Costo;
 int *NodoAnterior;
 
@@ -21,18 +21,15 @@ void InicializaVisitados() {
         Visitado[posicionFila] = FALSE;
 }
 
-void imprimirCamino(int *NodoAnterior, int *Costo, int numeroDeNodo, int v0){
+void imprimirCamino(int *NodoAnterior, int *Costo, int n, int v0){
     int *Camino, i, columna, nodo, nodo1, nodo2;
+    Camino = DarMemoriaArreglo(n);
 
-    //printf("\nLos caminos son: ");
-    Camino = DarMemoriaArreglo(numeroDeNodo);
-    //for(i=0;i<n;i++) {
-       // if (i != v0) {
     columna = 0;
-    Camino[columna] = DestinoDelCamino;
+    Camino[columna] = D;
     columna++;
-    nodo = NodoAnterior[DestinoDelCamino];
-    while(nodo != InicioDelCamino) {
+    nodo = NodoAnterior[D];
+    while(nodo != I) {
         Camino[columna] = nodo;
         columna++;
         nodo = NodoAnterior[nodo];
@@ -52,11 +49,9 @@ void imprimirCamino(int *NodoAnterior, int *Costo, int numeroDeNodo, int v0){
         printf("%3d", Camino[columna]);
         columna--;
     }
-
-
-       // }
-   // }
 }
+
+
 
 void niIdeaQueHaces(int *NodoAnterior, int *Costo, int numeroDeNodo, int v0){
     int *Camino, i, columna, nodo, nodo1, nodo2;
@@ -66,10 +61,10 @@ void niIdeaQueHaces(int *NodoAnterior, int *Costo, int numeroDeNodo, int v0){
     //for(i=0;i<n;i++) {
        // if (i != v0) {
     columna = 0;
-    Camino[columna] = DestinoDelCamino;
+    Camino[columna] = D;
     columna++;
-    nodo = NodoAnterior[DestinoDelCamino];
-    while(nodo != InicioDelCamino) {
+    nodo = NodoAnterior[D];
+    while(nodo != I) {
         Camino[columna] = nodo;
         columna++;
         nodo = NodoAnterior[nodo];
@@ -84,11 +79,13 @@ void niIdeaQueHaces(int *NodoAnterior, int *Costo, int numeroDeNodo, int v0){
         Grafo[nodo2][nodo1] = 0;
 
     }
+    while (columna >= 0) {
+        columna--;
+    }
 }
 
 
 void DIJKSTRA(int **Grafo, int v0) {
-
     int i, j, w=v0;
 
     Visitado = DarMemoriaArreglo(n);
@@ -134,8 +131,8 @@ void LeeGrafo(char nomArchivo[20]) {
     fscanf(pArchivo, "%d", &n);
     Grafo = DarMemoriaMatriz(n,n);
     fscanf(pArchivo, "%d",& m);
-    fscanf(pArchivo, "%d",& InicioDelCamino); 
-    fscanf(pArchivo, "%d",& DestinoDelCamino); 
+    fscanf(pArchivo, "%d",& I); 
+    fscanf(pArchivo, "%d",& D); 
     i= 1;
 
     while (i<=m) {
@@ -154,22 +151,47 @@ void LeeGrafo(char nomArchivo[20]) {
 
 void revisarCamino(){
     int i;
-    int costo;
+    int camino_casi_corto;
     for (i = 0; i <= 2; i++){
-        DIJKSTRA(Grafo, InicioDelCamino);
-        Costo[DestinoDelCamino];
-        niIdeaQueHaces(NodoAnterior, Costo, n, InicioDelCamino);
+        DIJKSTRA(Grafo, I);
+        camino_casi_corto = Costo[D];
+        niIdeaQueHaces(NodoAnterior, camino_casi_corto, n, I);
     }
 
-
-    printf("\nDistancia total: %d", Costo);
-    printf("\nCamino casi mas corto: ");
-    imprimirCamino(NodoAnterior, Costo, n, InicioDelCamino);
+    printf("\nDistancia total: %d", camino_casi_corto);
+    printf("\nCamino casi mas corto:");
+    imprimirCamino(NodoAnterior, camino_casi_corto, n, I);
 }
+
+void comprobarCamino(){
+    int x, y;
+    DIJKSTRA(Grafo, I);
+    Costo[D];
+    niIdeaQueHaces(NodoAnterior, Costo[D], n, I);
+    x = Costo[D];
+    DIJKSTRA(Grafo, I);
+    Costo[D];
+    niIdeaQueHaces(NodoAnterior, Costo, n, I);
+    y = Costo[D];
+    if(x != y) {
+        printf("\nDistancia total: %d", y);
+        printf("\nCamino casi mas corto:");
+        imprimirCamino(NodoAnterior, y, n, I);
+    } else {
+
+        // hay que ver como hacemos el bucle
+        printf("\nNecesitamos un bucle");
+    }
+        
+}
+
+
 
 void preProcesamiento() {
     char nomArchivo[20];
     int v0;
+    int i;
+
 
 
     printf("Ingrese nombre del archivo: ");
@@ -177,22 +199,18 @@ void preProcesamiento() {
     LeeGrafo(nomArchivo);
 
     InicializaVisitados();
-   // printf("Ingrese nodo inicial para buscar los caminos en el grafo (entre 0 y %d): ", n-1);
-    //scanf("%d", &v0);
 
-
-
-/*     DIJKSTRA(Grafo, I);
+/*    IJKSTRA(Grafo, I);
     printf("\n costo: %d", Costo[D]);
     imprimirCamino(NodoAnterior, Costo, n, I);
-    DIJKSTRA(Grafo, I);
+    DIJKSTRA(Grafo, I); 
     printf("\n costo: %d", Costo[D]);
     imprimirCamino(NodoAnterior, Costo, n, I);
     DIJKSTRA(Grafo, I);
     printf("\n costo: %d", Costo[D]);
     imprimirCamino(NodoAnterior, Costo, n, I);
  */
-    revisarCamino();
+    comprobarCamino();
 
 }
 
