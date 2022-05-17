@@ -207,7 +207,7 @@ void caminoCasiMasCorto() {
         niIdeaQueHaces(NodoAnterior, Costo[D], n, I); 
         y = Costo[D]; 
     }
-    printf("\nDistancia total: %d", y);
+    printf("Distancia total: %d", y);
     printf("\nCamino casi mas corto:");
     imprimirCamino(NodoAnterior, y, n, I);
 }
