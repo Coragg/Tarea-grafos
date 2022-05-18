@@ -56,10 +56,8 @@ void imprimirCamino(int *NodoAnterior, int *Costo, int n, int v0){
 void niIdeaQueHaces(int *NodoAnterior, int *Costo, int numeroDeNodo, int v0){
     int *Camino, i, columna, nodo, nodo1, nodo2;
 
-    //printf("\nLos caminos son: ");
     Camino = DarMemoriaArreglo(numeroDeNodo);
-    //for(i=0;i<n;i++) {
-       // if (i != v0) {
+
     columna = 0;
     Camino[columna] = D;
     columna++;
@@ -70,8 +68,6 @@ void niIdeaQueHaces(int *NodoAnterior, int *Costo, int numeroDeNodo, int v0){
         nodo = NodoAnterior[nodo];
     }
     Camino[columna] = nodo;
-
-    //printf("\n\t%2d -> %2d ($%3d): ", I, D, Costo[D]);
 
     for (i = 0; i < columna; i++){
         nodo1 = Camino[i];
@@ -163,7 +159,7 @@ void revisarCamino(){
     imprimirCamino(NodoAnterior, camino_casi_corto, n, I);
 }
 
-void comprobarCamino(){
+void comprobarCamino() {
     int x, y, z;
     DIJKSTRA(Grafo, I);
     Costo[D];
@@ -201,7 +197,7 @@ void caminoCasiMasCorto() {
     niIdeaQueHaces(NodoAnterior, Costo[D], n, I);
     x = Costo[D];
     y = x;
-    while(y == x){
+    while(y == x && y <= 5){
         DIJKSTRA(Grafo, I);
         Costo[D];
         niIdeaQueHaces(NodoAnterior, Costo[D], n, I); 
@@ -221,21 +217,10 @@ void preProcesamiento() {
 
     printf("Ingrese nombre del archivo: ");
     gets(nomArchivo);
-    LeeGrafo(nomArchivo);
+    LeeGrafo(nomArchivo); 
 
     InicializaVisitados();
 
-/*    IJKSTRA(Grafo, I);
-    printf("\n costo: %d", Costo[D]);
-    imprimirCamino(NodoAnterior, Costo, n, I);
-    DIJKSTRA(Grafo, I); 
-    printf("\n costo: %d", Costo[D]);
-    imprimirCamino(NodoAnterior, Costo, n, I);
-    DIJKSTRA(Grafo, I);
-    printf("\n costo: %d", Costo[D]);
-    imprimirCamino(NodoAnterior, Costo, n, I);
- */
-    //comprobarCamino();
 
     caminoCasiMasCorto();
 
