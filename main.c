@@ -167,40 +167,7 @@ void revisarCamino()
     imprimirCamino(NodoAnterior, camino_casi_corto, n, I);
 }
 
-void comprobarCamino()
-{
-    int x, y, z;
-    DIJKSTRA(Grafo, I);
-    Costo[D];
-    niIdeaQueHaces(NodoAnterior, Costo[D], n, I);
-    x = Costo[D];
-    DIJKSTRA(Grafo, I);
-    Costo[D];
-    niIdeaQueHaces(NodoAnterior, Costo, n, I);
-    y = Costo[D];
-    if (x != y)
-    {
-        printf("\nDistancia total: %d", y);
-        printf("\nCamino casi mas corto:");
-        imprimirCamino(NodoAnterior, y, n, I);
-    }
-    else
-    {
-        // hay que ver como hacemos el bucle
-        // printf("\nNecesitamos un bucle");
-        z = y;
-        while (y == z && z <= 5)
-        {
-            DIJKSTRA(Grafo, I);
-            Costo[D];
-            niIdeaQueHaces(NodoAnterior, Costo, n, I);
-            z = Costo[D];
-        }
-        printf("\nDistancia total: %d", z);
-        printf("\nCamino casi mas corto:");
-        imprimirCamino(NodoAnterior, z, n, I);
-    }
-}
+
 
 void caminoCasiMasCorto()
 {
