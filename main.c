@@ -55,7 +55,7 @@ void imprimirCamino(int *NodoAnterior, int *Costo, int n, int v0)
     }
 }
 
-void niIdeaQueHaces(int *NodoAnterior, int *Costo, int numeroDeNodo, int v0)
+void buscarYQuitarArcos(int *NodoAnterior, int *Costo, int numeroDeNodo, int v0)
 {
     int *Camino, i, columna, nodo, nodo1, nodo2;
 
@@ -161,13 +161,13 @@ void caminoCasiMasCorto()
 {
     int x, y;
     DIJKSTRA(Grafo, I);
-    niIdeaQueHaces(NodoAnterior, Costo, n, I);
+    buscarYQuitarArcos(NodoAnterior, Costo, n, I);
     x = Costo[D];
     y = x;
     while (y == x)
     {
         DIJKSTRA(Grafo, I);
-        niIdeaQueHaces(NodoAnterior, Costo, n, I);
+        buscarYQuitarArcos(NodoAnterior, Costo, n, I);
         y = Costo[D];
     }
     if(y == inf){
@@ -182,7 +182,7 @@ void caminoCasiMasCorto()
         printf("\nCamino casi mas corto:");
         imprimirCamino(NodoAnterior, z, n, I);
         DIJKSTRA(Grafo, I);
-        niIdeaQueHaces(NodoAnterior, Costo, n, I);
+        buscarYQuitarArcos(NodoAnterior, Costo, n, I);
         z = Costo[D];
     }
 
