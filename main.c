@@ -13,8 +13,7 @@ int I;
 int D;
 int *Costo;
 int *NodoAnterior;
-int g = 1;
-int existeSegundo = 0;
+
 
 void InicializaVisitados()
 {
