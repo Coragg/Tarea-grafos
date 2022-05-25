@@ -71,11 +71,6 @@ void buscarYQuitarArcos(int *NodoAnterior, int *Costo, int numeroDeNodo, int v0)
     }
     Camino[columna] = nodo;
 
-    if (Costo[D] == inf && g == 1)
-    {
-        existeSegundo = 1;
-    }
-
     for (i = 0; i < columna; i++)
     {
         nodo1 = Camino[i];
