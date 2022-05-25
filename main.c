@@ -167,36 +167,26 @@ void caminoCasiMasCorto()
     while (y == x)
     {
         DIJKSTRA(Grafo, I);
-        Costo[D];
         niIdeaQueHaces(NodoAnterior, Costo, n, I);
         y = Costo[D];
     }
-    
-    int primerNodoAnterior = NodoAnterior;
-    int z = NULL;
-    while(z != y) {
-        DIJKSTRA(Grafo, I);
-        Costo[D];
-        niIdeaQueHaces(NodoAnterior, Costo, n, I);
-        z = Costo[D];
-        if(z == y){
-            existeSegundo = 1;
-        } else {
-            existeSegundo = 0;
-        }
+    if(y == inf){
+        printf("NO existe camino casi mas corto.");
+        return;
     }
+    int z = y;
+    printf("Distancia total: %d", y);
 
-    if(existeSegundo == 0){
-        printf("Distancia total: %d", y);
-        printf("\nCamino casi mas corto:");
-        imprimirCamino(NodoAnterior, y, n, I);
-    } else {
-        printf("Distancia total: %d", y);
-        printf("\nCamino casi mas corto:");
-        imprimirCamino(primerNodoAnterior, y, n, I);
+    while (z == y)
+    {
         printf("\nCamino casi mas corto:");
         imprimirCamino(NodoAnterior, z, n, I);
+        DIJKSTRA(Grafo, I);
+        niIdeaQueHaces(NodoAnterior, Costo, n, I);
+        z = Costo[D];
     }
+
+
 }
 
 void preProcesamiento()
