@@ -205,15 +205,14 @@ void caminoCasiMasCorto()
 {
     int x, y;
     DIJKSTRA(Grafo, I);
-    Costo[D];
-    niIdeaQueHaces(NodoAnterior, Costo[D], n, I);
+    niIdeaQueHaces(NodoAnterior, Costo, n, I);
     x = Costo[D];
     y = x;
-    while (y == x && y <= 5)
+    while (y == x)
     {
         DIJKSTRA(Grafo, I);
         Costo[D];
-        niIdeaQueHaces(NodoAnterior, Costo[D], n, I);
+        niIdeaQueHaces(NodoAnterior, Costo, n, I);
         y = Costo[D];
     }
     printf("Distancia total: %d", y);
