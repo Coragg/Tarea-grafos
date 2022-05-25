@@ -40,7 +40,6 @@ void imprimirCamino(int *NodoAnterior, int *Costo, int n, int v0)
     }
     Camino[columna] = nodo;
 
-
     for (i = 0; i < columna; i++)
     {
         nodo1 = Camino[i];
@@ -73,10 +72,10 @@ void buscarYQuitarArcos(int *NodoAnterior, int *Costo, int numeroDeNodo, int v0)
     }
     Camino[columna] = nodo;
 
-    if(Costo[D] == inf && g == 1) {
+    if (Costo[D] == inf && g == 1)
+    {
         existeSegundo = 1;
     }
-    
 
     for (i = 0; i < columna; i++)
     {
@@ -170,7 +169,8 @@ void caminoCasiMasCorto()
         buscarYQuitarArcos(NodoAnterior, Costo, n, I);
         y = Costo[D];
     }
-    if(y == inf){
+    if (y == inf)
+    {
         printf("NO existe camino casi mas corto.");
         return;
     }
@@ -185,8 +185,6 @@ void caminoCasiMasCorto()
         buscarYQuitarArcos(NodoAnterior, Costo, n, I);
         z = Costo[D];
     }
-
-
 }
 
 void preProcesamiento()
