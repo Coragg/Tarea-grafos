@@ -5,7 +5,6 @@
 
 // constantes
 #define name 45
-BOOL *Visitado;
 BOOL *Visitado = NULL;
 int **Grafo = NULL;
 int n;
@@ -14,6 +13,7 @@ int I;
 int D;
 int *Costo;
 int *NodoAnterior;
+int g = 1;
 
 void InicializaVisitados()
 {
@@ -38,6 +38,7 @@ void imprimirCamino(int *NodoAnterior, int *Costo, int n, int v0)
         nodo = NodoAnterior[nodo];
     }
     Camino[columna] = nodo;
+
 
     for (i = 0; i < columna; i++)
     {
