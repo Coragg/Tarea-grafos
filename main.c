@@ -151,24 +151,6 @@ void LeeGrafo(char nomArchivo[20])
     fclose(pArchivo);
 }
 
-void revisarCamino()
-{
-    int i;
-    int camino_casi_corto;
-    for (i = 0; i <= 2; i++)
-    {
-        DIJKSTRA(Grafo, I);
-        camino_casi_corto = Costo[D];
-        niIdeaQueHaces(NodoAnterior, camino_casi_corto, n, I);
-    }
-
-    printf("\nDistancia total: %d", camino_casi_corto);
-    printf("\nCamino casi mas corto:");
-    imprimirCamino(NodoAnterior, camino_casi_corto, n, I);
-}
-
-
-
 void caminoCasiMasCorto()
 {
     int x, y;
