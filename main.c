@@ -3,8 +3,11 @@
 #include <string.h>
 #include "manejoMatriz.h"
 
-// constantes
+// constantes globales
 #define name 45
+
+//variables globales
+
 BOOL *Visitado = NULL;
 int **Grafo = NULL;
 int n;
@@ -14,14 +17,14 @@ int D;
 int *Costo;
 int *NodoAnterior;
 
-
-void InicializaVisitados()
+/* da comienzo al recorrido de las filas */
+void InicializaVisitados() 
 {
     int posicionFila;
     for (posicionFila = 0; posicionFila < n; posicionFila++)
         Visitado[posicionFila] = FALSE;
 }
-
+/* va cambiando los nodos y los va cambiando hasta imprimirlos */
 void imprimirCamino(int *NodoAnterior, int *Costo, int n, int v0)
 {
     int *Camino, i, columna, nodo, nodo1, nodo2;
@@ -52,7 +55,7 @@ void imprimirCamino(int *NodoAnterior, int *Costo, int n, int v0)
         columna--;
     }
 }
-
+/* va revisando los arcos y los va quitando */
 void buscarYQuitarArcos(int *NodoAnterior, int *Costo, int numeroDeNodo, int v0)
 {
     int *Camino, i, columna, nodo, nodo1, nodo2;
@@ -82,7 +85,7 @@ void buscarYQuitarArcos(int *NodoAnterior, int *Costo, int numeroDeNodo, int v0)
         columna--;
     }
 }
-
+/*busca los caminos mas eficientes dentro de un grafo*/
 void DIJKSTRA(int **Grafo, int v0)
 {
     int i, j, w = v0;
@@ -117,7 +120,7 @@ void DIJKSTRA(int **Grafo, int v0)
         }
     }
 }
-
+/*solo lee el archivo que contiene la matriz para luego crear el grafo*/
 void LeeGrafo(char nomArchivo[20])
 {
     FILE *pArchivo;
@@ -149,7 +152,8 @@ void LeeGrafo(char nomArchivo[20])
     Visitado = DarMemoriaArreglo(n);
     fclose(pArchivo);
 }
-
+/* este aplica dijkstra cuando ya encotro el casi mas corto y busca los otros caminos que son similares 
+y tambien ve si no encuetra caminos casi mas cortos */
 void caminoCasiMasCorto()
 {
     int x, y;
@@ -180,7 +184,7 @@ void caminoCasiMasCorto()
         z = Costo[D];
     }
 }
-
+/* pregunta el nombre del archivo y luego ejecuta las funciones previamente creadas */
 void preProcesamiento()
 {
     char nomArchivo[20];
@@ -195,7 +199,7 @@ void preProcesamiento()
 
     caminoCasiMasCorto();
 }
-
+/* ejecuta el programa */
 int main()
 {
     preProcesamiento();
