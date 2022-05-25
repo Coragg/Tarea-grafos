@@ -14,6 +14,7 @@ int D;
 int *Costo;
 int *NodoAnterior;
 int g = 1;
+int existeSegundo = 0;
 
 void InicializaVisitados()
 {
@@ -71,6 +72,11 @@ void niIdeaQueHaces(int *NodoAnterior, int *Costo, int numeroDeNodo, int v0)
         nodo = NodoAnterior[nodo];
     }
     Camino[columna] = nodo;
+
+    if(Costo[D] == inf && g == 1) {
+        existeSegundo = 1;
+    }
+    
 
     for (i = 0; i < columna; i++)
     {
@@ -165,9 +171,32 @@ void caminoCasiMasCorto()
         niIdeaQueHaces(NodoAnterior, Costo, n, I);
         y = Costo[D];
     }
-    printf("Distancia total: %d", y);
-    printf("\nCamino casi mas corto:");
-    imprimirCamino(NodoAnterior, y, n, I);
+    
+    int primerNodoAnterior = NodoAnterior;
+    int z = NULL;
+    while(z != y) {
+        DIJKSTRA(Grafo, I);
+        Costo[D];
+        niIdeaQueHaces(NodoAnterior, Costo, n, I);
+        z = Costo[D];
+        if(z == y){
+            existeSegundo = 1;
+        } else {
+            existeSegundo = 0;
+        }
+    }
+
+    if(existeSegundo == 0){
+        printf("Distancia total: %d", y);
+        printf("\nCamino casi mas corto:");
+        imprimirCamino(NodoAnterior, y, n, I);
+    } else {
+        printf("Distancia total: %d", y);
+        printf("\nCamino casi mas corto:");
+        imprimirCamino(primerNodoAnterior, y, n, I);
+        printf("\nCamino casi mas corto:");
+        imprimirCamino(NodoAnterior, z, n, I);
+    }
 }
 
 void preProcesamiento()
