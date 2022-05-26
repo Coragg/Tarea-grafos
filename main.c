@@ -7,13 +7,12 @@
 #define name 45
 
 //variables globales
-
 BOOL *Visitado = NULL;
 int **Grafo = NULL;
 int n;
 int m;
-int I;
-int D;
+int Inicio;
+int Destino;
 int *Costo;
 int *NodoAnterior;
 
@@ -31,10 +30,10 @@ void imprimirCamino(int *NodoAnterior, int *Costo, int n, int v0)
     Camino = DarMemoriaArreglo(n);
 
     columna = 0;
-    Camino[columna] = D;
+    Camino[columna] = Destino;
     columna++;
-    nodo = NodoAnterior[D];
-    while (nodo != I)
+    nodo = NodoAnterior[Destino];
+    while (nodo != Inicio)
     {
         Camino[columna] = nodo;
         columna++;
@@ -63,10 +62,10 @@ void buscarYQuitarArcos(int *NodoAnterior, int *Costo, int numeroDeNodo, int v0)
     Camino = DarMemoriaArreglo(numeroDeNodo);
 
     columna = 0;
-    Camino[columna] = D;
+    Camino[columna] = Destino;
     columna++;
-    nodo = NodoAnterior[D];
-    while (nodo != I)
+    nodo = NodoAnterior[Destino];
+    while (nodo != Inicio)
     {
         Camino[columna] = nodo;
         columna++;
@@ -136,8 +135,8 @@ void LeeGrafo(char nomArchivo[20])
     fscanf(pArchivo, "%d", &n);
     Grafo = DarMemoriaMatriz(n, n);
     fscanf(pArchivo, "%d", &m);
-    fscanf(pArchivo, "%d", &I);
-    fscanf(pArchivo, "%d", &D);
+    fscanf(pArchivo, "%d", &Inicio);
+    fscanf(pArchivo, "%d", &Destino);
     i = 1;
 
     while (i <= m)
@@ -156,32 +155,32 @@ void LeeGrafo(char nomArchivo[20])
 y tambien ve si no encuetra caminos casi mas cortos */
 void caminoCasiMasCorto()
 {
-    int x, y;
-    DIJKSTRA(Grafo, I);
-    buscarYQuitarArcos(NodoAnterior, Costo, n, I);
-    x = Costo[D];
-    y = x;
-    while (y == x)
+    int caminoCortoDescartado, caminoCasiCorto;
+    DIJKSTRA(Grafo, Inicio);
+    buscarYQuitarArcos(NodoAnterior, Costo, n, Inicio);
+    caminoCortoDescartado = Costo[Destino];
+    caminoCasiCorto = caminoCortoDescartado;
+    while (caminoCasiCorto == caminoCortoDescartado)
     {
-        DIJKSTRA(Grafo, I);
-        buscarYQuitarArcos(NodoAnterior, Costo, n, I);
-        y = Costo[D];
+        DIJKSTRA(Grafo, Inicio);
+        buscarYQuitarArcos(NodoAnterior, Costo, n, Inicio);
+        caminoCasiCorto = Costo[Destino];
     }
-    if (y == inf)
+    if (caminoCasiCorto == inf)
     {
         printf("NO existe camino casi mas corto.");
         return;
     }
-    int z = y;
-    printf("Distancia total: %d", y);
+    int otrasOpcionesDeCamino = caminoCasiCorto;
+    printf("Distancia total: %d", caminoCasiCorto);
 
-    while (z == y)
+    while (otrasOpcionesDeCamino == caminoCasiCorto)
     {
         printf("\nCamino casi mas corto:");
-        imprimirCamino(NodoAnterior, z, n, I);
-        DIJKSTRA(Grafo, I);
-        buscarYQuitarArcos(NodoAnterior, Costo, n, I);
-        z = Costo[D];
+        imprimirCamino(NodoAnterior, otrasOpcionesDeCamino, n, Inicio);
+        DIJKSTRA(Grafo, Inicio);
+        buscarYQuitarArcos(NodoAnterior, Costo, n, Inicio);
+        otrasOpcionesDeCamino = Costo[Destino];
     }
 }
 /* pregunta el nombre del archivo y luego ejecuta las funciones previamente creadas */
@@ -189,7 +188,7 @@ void preProcesamiento()
 {
     char nomArchivo[20];
     int v0;
-    int i;
+    //int i;
 
     printf("Ingrese nombre del archivo: ");
     gets(nomArchivo);
